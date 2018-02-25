@@ -113,6 +113,8 @@ function SWEP:SecondaryAttack()
 end
 
 function SWEP:Reload()
+	local ply = self.Owner
+	
 	if self:GetNWBool("PD_WepDisguised") then -- If you are a prop, the trace 'hits' your entity. 
 		if self.NextReloadMSG + 1 < CurTime() then
 			PD_Msg("You can't choose a new model while disguised, silly", self.Owner)
