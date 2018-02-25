@@ -79,6 +79,8 @@ SWEP.Blacklist = {
 
 -- We use this to save the players hp before they turn into a prop
 SWEP.SavedHP = 50 -- If this somehow fails to be saved give them 50 hp
+SWEP.NextReloadMSG = CurTime()
+
 
 local function PD_Msg(txt, ply)
 	if SERVER then
@@ -112,7 +114,10 @@ end
 
 function SWEP:Reload()
 	if self:GetNWBool("PD_WepDisguised") then -- If you are a prop, the trace 'hits' your entity. 
-		PD_Msg("You can't choose a new model while disguised, silly", self.Owner)
+		if self.NextReloadMSG + 1 < CurTime() then
+			PD_Msg("You can't choose a new model while disguised, silly", self.Owner)
+			self.NextReloadMSG = CurTime()
+		end
 		return
 	else
 		self:ModelHandler()
