@@ -112,7 +112,7 @@ end
 
 function SWEP:Reload()
 	if self:GetNWBool("PD_WepDisguised") then -- If you are a prop, the trace 'hits' your entity. 
-		PD_Msg("You can't choose a new model while disguised, silly", ply)
+		PD_Msg("You can't choose a new model while disguised, silly", self.Owner)
 		return
 	else
 		self:ModelHandler()
