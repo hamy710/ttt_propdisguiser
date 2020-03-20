@@ -188,6 +188,7 @@ function SWEP:PropUnDisguise()
 	if IsValid(self.Prop) and IsValid(self.Owner) and self:GetNWBool("PD_WepDisguised") then
 		local creditsSave 	= ply:GetCredits()
 		local equipNumSave 	= ply:GetEquipmentItems()
+		local boughtSave = ply.bought
 		local pd_isTTTdisguised = ply:GetNWBool("disguised", false)
 
 		ply:SetNWFloat("PD_TimeLeft", 0)
@@ -221,6 +222,8 @@ function SWEP:PropUnDisguise()
 		self.AllowDrop = true
 		ply:SetCredits(creditsSave)
 		ply:GiveEquipmentItem(equipNumSave)
+		ply.bought = boughtSave
+		ply:ConCommand("ttt_resend_bought")
 		if pd_isTTTdisguised then
 			ply:SetNWBool("disguised", true)
 		end
